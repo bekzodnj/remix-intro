@@ -18,11 +18,16 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
 
-import { getContacts } from "./data";
+import { getContacts, createEmptyContact } from "./data";
 
 export const loader = async () => {
   const contacts = await getContacts();
   return json({ contacts });
+};
+
+export const action = async () => {
+  const contact = await createEmptyContact();
+  return json({ contact });
 };
 
 export default function App() {
@@ -54,14 +59,6 @@ export default function App() {
             </Form>
           </div>
           <nav>
-            {/* <ul>
-              <li>
-                <Link to={`/contacts/1`}>Your Name</Link>
-              </li>
-              <li>
-                <Link to={`/contacts/2`}>Your Friend</Link>
-              </li>
-            </ul> */}
             {contacts.length ? (
               <ul>
                 {contacts.map((contact) => (
